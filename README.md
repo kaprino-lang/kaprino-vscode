@@ -1,4 +1,4 @@
-# kaprino-lang
+# kaprino-lang suuport for VS Code
 
 This is a syntax highlight support for kaprino language.
 
