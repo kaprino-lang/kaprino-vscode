@@ -1,0 +1,25 @@
+{
+    "name": "kaprino-lang",
+    "displayName": "kaprino-lang",
+    "description": "This is a syntax highlight support for kaprino language.",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.47.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "kaprino",
+            "aliases": ["kaprino", "kaprino"],
+            "extensions": ["kpr"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "kaprino",
+            "scopeName": "source.kpr",
+            "path": "./syntaxes/kaprino.tmLanguage.json"
+        }]
+    }
+}
