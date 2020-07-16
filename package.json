@@ -1,6 +1,7 @@
 {
     "name": "kaprino-lang",
     "displayName": "kaprino-lang",
+    "icon": "images/icon.png",
     "description": "This is a syntax highlight support for kaprino language.",
     "version": "0.0.1",
     "engines": {
