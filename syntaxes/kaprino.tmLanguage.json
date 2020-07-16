@@ -4,15 +4,15 @@
 	"patterns": [
 		{
             "include": "#comments"
-        },
+		},
 		{
-			"include": "#keywords"
+			"include": "#statements"
+		},
+		{
+			"include": "#exprs"
 		},
 		{
 			"include": "#strings"
-		},
-		{
-			"include": "#params"
 		}
 	],
 	"repository": {
@@ -23,20 +23,331 @@
                     "match": "//.*"
                 }
             ]
-        },
-		"keywords": {
+		},
+		"statements": {
 			"patterns": [
 				{
-					"name": "keyword.control.kaprino",
-					"match": "\\#\\b(if|otherwise|loop|exit|submit|require|print|read)\\b"
+					"match": "(\\#let)\\s+([a-zA-Z][0-9a-z-A-Z]*)\\s*\\((.*)\\)\\s*.",
+					"captures": {
+						"1": {
+							"name": "storage.type"
+						},
+						"2": {
+							"name": "entity.name"
+						},
+						"3": {
+							"patterns": [
+								{
+									"name": "support.class",
+									"match": "[a-zA-Z][0-9a-z-A-Z]*"
+								}
+							]
+						}
+					}
+				},
+				{
+					"match": "(\\#let)\\s+([a-zA-Z][0-9a-z-A-Z]*)\\s*=\\s*(.*)\\s*\\((.*)\\)\\s*.",
+					"captures": {
+						"1": {
+							"name": "storage.type"
+						},
+						"2": {
+							"name": "entity.name"
+						},
+						"3": {
+							"patterns": [
+								{
+									"include": "#exprs"
+								}
+							]
+						},
+						"4": {
+							"patterns": [
+								{
+									"name": "support.class",
+									"match": "[a-zA-Z][0-9a-z-A-Z]*"
+								}
+							]
+						}
+					}
+				},
+				{
+					"match": "([a-zA-Z][0-9a-z-A-Z]*)\\((.*)\\)\\s*=\\s*(.*)\\s*\\((.*)\\)\\s*.",
+					"captures": {
+						"1": {
+							"name": "entity.name.function"
+						},
+						"2": {
+							"patterns": [
+								{
+									"name": "variable.parameter",
+									"match": "[a-zA-Z][0-9a-z-A-Z]*"
+								}
+							]
+						},
+						"3": {
+							"patterns": [
+								{
+									"include": "#exprs"
+								}
+							]
+						},
+						"4": {
+							"patterns": [
+								{
+									"name": "support.class",
+									"match": "[a-zA-Z][0-9a-z-A-Z]*"
+								}
+							]
+						}
+					}
+				},
+				{
+					"match": "(\\#func)\\s+([a-zA-Z][0-9a-z-A-Z]*)\\((.*)\\)\\s*\\((.*)\\)\\s*(extern)\\s*.",
+					"captures": {
+						"1": {
+							"name": "storage.type"
+						},
+						"2": {
+							"name": "entity.name.function"
+						},
+						"3": {
+							"patterns": [
+								{
+									"name": "variable.parameter",
+									"match": "[a-zA-Z][0-9a-z-A-Z]*"
+								}
+							]
+						},
+						"4": {
+							"patterns": [
+								{
+									"name": "support.class",
+									"match": "[a-zA-Z][0-9a-z-A-Z]*"
+								}
+							]
+						},
+						"5": {
+							"name": "keyword.control.kaprino"
+						}
+					}
+				},
+				{
+					"match": "(\\#func)\\s+([a-zA-Z][0-9a-z-A-Z]*)\\((.*)\\)\\s*\\((.*)\\)\\s*|>\\s*(.*)\\s*|>",
+					"captures": {
+						"1": {
+							"name": "storage.type"
+						},
+						"2": {
+							"name": "entity.name.function"
+						},
+						"3": {
+							"patterns": [
+								{
+									"name": "variable.parameter",
+									"match": "[a-zA-Z][0-9a-z-A-Z]*"
+								}
+							]
+						},
+						"4": {
+							"patterns": [
+								{
+									"name": "support.class",
+									"match": "[a-zA-Z][0-9a-z-A-Z]*"
+								}
+							]
+						},
+						"5": {
+							"patterns": [
+								{
+									"include": "#statements"
+								}
+							]
+						}
+					}
+				},
+				{
+					"match": "(\\#if)\\s+(.*)\\s*|>(.*)|>",
+					"captures": {
+						"1": {
+							"name": "keyword.control"
+						},
+						"2": {
+							"patterns": [
+								{
+									"include": "#exprs"
+								}
+							]
+						},
+						"3": {
+							"patterns": [
+								{
+									"include": "#statements"
+								}
+							]
+						}
+					}
+				},
+				{
+					"match": "(\\#otherwise)\\s*|>(.*)|>",
+					"captures": {
+						"1": {
+							"name": "keyword.control"
+						},
+						"2": {
+							"patterns": [
+								{
+									"include": "#statements"
+								}
+							]
+						}
+					}
+				},
+				{
+					"match": "(\\#loop)\\s*|>(.*)|>",
+					"captures": {
+						"1": {
+							"name": "keyword.control"
+						},
+						"2": {
+							"patterns": [
+								{
+									"include": "#statements"
+								}
+							]
+						}
+					}
+				},
+				{
+					"match": "(\\#class)\\s+([a-zA-Z][0-9a-z-A-Z]*)\\s*|>(.*)|>",
+					"captures": {
+						"1": {
+							"name": "storage.type"
+						},
+						"2": {
+							"name": "entity.name.class"
+						},
+						"3": {
+							"patterns": [
+								{
+									"include": "#statements"
+								}
+							]
+						}
+					}
+				},
+				{
+					"match": "(\\#submit)\\s+.",
+					"captures": {
+						"1": {
+							"name": "keyword.control"
+						}
+					}
+				},
+				{
+					"match": "(\\#submit)\\s+(.*).",
+					"captures": {
+						"1": {
+							"name": "keyword.control"
+						},
+						"2": {
+							"patterns": [
+								{
+									"include": "#exprs"
+								}
+							]
+						}
+					}
+				},
+				{
+					"match": "(\\#exit).",
+					"captures": {
+						"1": {
+							"name": "keyword.control"
+						}
+					}
+				},
+				{
+					"match": "(\\#print)\\s+(.*).",
+					"captures": {
+						"1": {
+							"name": "keyword.control"
+						},
+						"2": {
+							"patterns": [
+								{
+									"include": "#exprs"
+								}
+							]
+						}
+					}
+				},
+				{
+					"match": "(\\#read)\\s+(.*).",
+					"captures": {
+						"1": {
+							"name": "keyword.control"
+						},
+						"2": {
+							"patterns": [
+								{
+									"include": "#exprs"
+								}
+							]
+						}
+					}
+				},
+				{
+					"match": "(\\#require)\\s+(.*).",
+					"captures": {
+						"1": {
+							"name": "keyword.control"
+						},
+						"2": {
+							"patterns": [
+								{
+									"include": "#strings"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		"exprs": {
+			"patterns": [
+				{
+					"name": "constant.numeric",
+					"match": "[0-9]+(\\.[0-9])*"
 				},
 				{
 					"name": "keyword.control.kaprino",
-					"match": "\\b(extern|and|or|not)\\b"
+					"match": "\\b(and|or|not)\\b"
 				},
 				{
-					"name": "storage.type.kaprino",
-					"match": "\\#\\b(let|func|class)\\b"
+					"name": "variable.language",
+					"match": "\\b(true|false)\\b"
+				},
+				{
+					"begin": "([a-z-A-Z][0-9a-z-A-Z]*)\\(",
+					"beginCaptures": {
+						"1": {
+							"name": "support.function"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#exprs"
+						}
+					],
+					"end": "\\)"
+				},
+				{
+					"name": "variable.parameter",
+					"match": "[a-z-A-Z][0-9a-z-A-Z]*"
+				},
+				{
+					"include": "#strings"
 				}
 			]
 		},
@@ -50,23 +361,7 @@
 					"match": "\\\\."
 				}
 			]
-		},
-		"params": {
-            "patterns": [
-				{
-					"name": "variable.language",
-					"match": "\\b(true|false)\\b"
-				},
-				{
-                    "name": "variable.name",
-                    "match": "[a-zA-Z][0-9a-zA-Z]*"
-                },
-                {
-                    "name": "constant.numeric",
-                    "match": "[0-9]+(\\.[0-9])*"
-                }
-            ]
-        }
+		}
 	},
 	"scopeName": "source.kpr"
 }
