@@ -2,14 +2,12 @@
 
 This is a syntax highlight support for [kaprino language](https://github.com/kaprino-lang/kaprino).
 
-## Features
-
-## Requirements
-
-None.
-
-## Extension Settings
+![Kaprino extension image](./images/kaprino-ext.png)
 
 ## Repository
 
 https://github.com/kaprino-lang/kaprino-vscode
+
+## License
+
+[MIT License](https://github.com/kaprino-lang/kaprino-vscode/blob/master/LICENSE)
