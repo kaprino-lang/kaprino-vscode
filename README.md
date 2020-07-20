@@ -2,7 +2,7 @@
 
 This is a syntax highlight support for [kaprino language](https://github.com/kaprino-lang/kaprino).
 
-![Kaprino extension image](./images/kaprino-ext.png)
+![Kaprino extension image](./images/example.png)
 
 ## Repository
 
